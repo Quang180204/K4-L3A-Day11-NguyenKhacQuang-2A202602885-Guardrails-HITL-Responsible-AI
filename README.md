@@ -4,6 +4,12 @@
 > 🎯 **Mục tiêu:** xây **Blue** (phòng thủ), rồi red-team **Red** + **Red Advance**.  
 > ✅ Làm theo **Checkpoint 1 → 5** trong [`CHECKPOINTS.md`](CHECKPOINTS.md) · nộp theo [`SUBMISSION.md`](SUBMISSION.md).
 
+## Thông tin học viên
+
+- **Họ tên:** Nguyễn Khắc Quang (`NguyenKhacQuang`)
+- **MSSV:** `2A202602885`
+- **Phạm vi:** Blue guardrails/pipeline và Red-team theo rubric Day 11
+
 ---
 
 ## Thời lượng

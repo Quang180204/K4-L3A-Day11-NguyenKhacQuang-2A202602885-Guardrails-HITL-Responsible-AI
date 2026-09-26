@@ -18,7 +18,13 @@ Hai tầng model (không trộn):
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 _ROOT = Path(__file__).resolve().parents[2]
 
@@ -28,6 +34,11 @@ try:
     load_dotenv(_ROOT / ".env")
 except ImportError:
     pass
+
+# Tự động đồng bộ nếu môi trường đã có sẵn GEMINI_API_KEY
+if not os.environ.get("GOOGLE_API_KEY") and os.environ.get("GEMINI_API_KEY"):
+    os.environ["GOOGLE_API_KEY"] = os.environ["GEMINI_API_KEY"]
+
 
 # --- Providers ---
 PROVIDER_OPENAI = "openai"

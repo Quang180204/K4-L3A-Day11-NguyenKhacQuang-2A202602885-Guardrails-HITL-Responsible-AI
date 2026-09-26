@@ -62,14 +62,27 @@ class OpenAIRunner:
             return block_msg
 
         client = self._client()
-        completion = client.chat.completions.create(
-            model=self.model,
-            messages=[
-                {"role": "system", "content": agent.instruction},
-                {"role": "user", "content": user_message},
-            ],
-            temperature=self.temperature,
-        )
+        try:
+            completion = client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": agent.instruction},
+                    {"role": "user", "content": user_message},
+                ],
+                temperature=self.temperature,
+            )
+        except Exception as e:
+            if ("404" in str(e) or "No endpoints found" in str(e)) and not self.model.endswith(":free"):
+                completion = client.chat.completions.create(
+                    model=f"{self.model}:free",
+                    messages=[
+                        {"role": "system", "content": agent.instruction},
+                        {"role": "user", "content": user_message},
+                    ],
+                    temperature=self.temperature,
+                )
+            else:
+                raise
         text = (completion.choices[0].message.content or "").strip()
 
         for hook in self.output_hooks:
